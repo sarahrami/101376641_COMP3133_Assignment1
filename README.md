@@ -1,1 +1,6 @@
-# 101376641_COMP3133_Assignment1
+# GraphQL API's
+- Query
+- Mutation
+# MongoDB
+- User collection
+- Employee collection
