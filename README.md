@@ -1,4 +1,4 @@
-This project is a Backend application developed using NodeJS, Express, GraphQL, and MongoDB. 
+## This project is a Backend application developed using NodeJS, Express, GraphQL, and MongoDB. 
 
 # MongoDB
 - User collection
@@ -9,7 +9,7 @@ Methods used in project:
 - Query
 - Mutation
 
-Signup: Allow users to create a new account.
+- Signup: Allow users to create a new account.
 Method: Mutation
 
 Login: Allow users to access the system.
