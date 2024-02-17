@@ -7,7 +7,7 @@ const root = {
       const userExist = await UserModel.findOne({ username: args.username });
 
       if (userExist) {
-        return null;
+        return {user: null, message: "User already exists."};
       }
       const hashedPassword = await bcrypt.hash(args.password, 10);
       const user = new UserModel({
@@ -15,9 +15,13 @@ const root = {
         email: args.email,
         password: hashedPassword,
       });
-
-      const newUser = await user.save();
-      return newUser;
+      try{
+        const newUser = await user.save();
+      return {user: newUser, message: "User created."};
+      }catch (error) {
+        return { message: ` ${error}`};
+      }
+      
     },
     login: async ({ usernameOrEmail, password }) => {
       const isEmail = usernameOrEmail.includes("@");
@@ -30,12 +34,12 @@ const root = {
       if (!user || !passwordMatch) {
         return "Credentials are wrong" ;
       }
-      return "User successfully logged in!" ;
+      return `${usernameOrEmail} successfully logged in.` ;
     },
     addEmployee: async (args) => {
       const employeeExist = await EmployeeModel.findOne({ email: args.email });
       if (employeeExist) {
-        return null;
+        return {message: "Employee already exists."};
       }
     
       const employee = new EmployeeModel({
@@ -48,29 +52,36 @@ const root = {
     
       try {
         const newEmployee = await employee.save();
-        return newEmployee;
+        return {employee: newEmployee, message: "Employee created."};
       } catch (error) {
-        return { error: "Failed to add employee" };
+        return { message: ` ${error}`};
       }
     },        
     searchEmployeeById: async ({ id }) => {
-      const employee = await EmployeeModel.findById(id);
-    
-      if (!employee) {
-        return null
-      } else {
-        return employee;
+      try {
+        const employee = await EmployeeModel.findById(id);
+        if (!employee) {
+          return { message: "Employee not found." };
+        }
+        return { employee, message: "Employee retrieved." };
+      } catch (error) {
+        return { message: `${error}` };
       }
-    },
+    }
+    ,
     
     updateEmployeeById: async ({ id, ...empFields }) => {
       const employee = await EmployeeModel.findById(id);
       if (!employee) {
         return { message: "Employee not found." };
       }
-      Object.assign(employee, empFields);
-      await employee.save();
-      return employee;
+      try{
+        Object.assign(employee, empFields);
+        await employee.save();
+        return { employee: employee, message: "Employee updated." };
+      }catch (error) {
+        return { message: `Failed to update employee due to: ${error}`};
+      }
     },
     deleteEmployeeById: async ({ id }) => {
       const employee = await EmployeeModel.findByIdAndDelete(id);

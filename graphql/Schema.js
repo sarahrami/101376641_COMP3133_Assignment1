@@ -20,15 +20,23 @@ const schema = buildSchema(`
     gender: Gender!
     salary: Float!
   }
+  type SignupResponse {
+    user: User
+    message: String
+  }
+  type EmployeeResponse {
+    employee: Employee
+    message: String
+  }
   type Query {
     login(usernameOrEmail: String!, password: String!): String
     getAllEmployees: [Employee]
-    searchEmployeeById(id: ID!): Employee
+    searchEmployeeById(id: ID!): EmployeeResponse
   }
   type Mutation {
-    signup(username: String!, email: String!, password: String!): User
-    addEmployee(first_name: String!, last_name: String!, email: String!, gender: Gender!, salary: Float!): Employee
-    updateEmployeeById(id: ID!, first_name: String, last_name: String, email: String, gender: Gender, salary: Float): Employee
+    signup(username: String!, email: String!, password: String!): SignupResponse
+    addEmployee(first_name: String!, last_name: String!, email: String!, gender: Gender!, salary: Float!): EmployeeResponse
+    updateEmployeeById(id: ID!, first_name: String, last_name: String, email: String, gender: Gender, salary: Float): EmployeeResponse
     deleteEmployeeById(id: ID!): String
   }
 `);

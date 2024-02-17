@@ -5,7 +5,7 @@ const bodyParser = require("body-parser");
 var { graphqlHTTP } = require("express-graphql");
 
 const schema = require("./graphql/Schema");
-const root = require("./graphql/root");
+const root = require("./graphql/resolvers");
 
 const app = express();
 
