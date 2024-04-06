@@ -28,13 +28,17 @@ const root = {
       const user = isEmail
         ? await UserModel.findOne({ email: usernameOrEmail })
         : await UserModel.findOne({ username: usernameOrEmail });
-
-      const passwordMatch = await bcrypt.compare(password, user.password);
-  
-      if (!user || !passwordMatch) {
-        return "Credentials are wrong" ;
+    
+      if (!user) {
+        return "User not found.";
       }
-      return `${usernameOrEmail} successfully logged in.` ;
+    
+      const passwordMatch = await bcrypt.compare(password, user.password);
+      if (!passwordMatch) {
+        return "Password is incorrect.";
+      }
+    
+      return `Success`;
     },
     addEmployee: async (args) => {
       const employeeExist = await EmployeeModel.findOne({ email: args.email });
@@ -89,7 +93,7 @@ const root = {
       if (!employee) {
         return "Employee not found";
       } else {
-        return "Employee successfully deleted.";
+        return "Success";
       }
     },
     getAllEmployees: async () => {

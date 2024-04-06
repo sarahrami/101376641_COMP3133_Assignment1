@@ -3,12 +3,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 var { graphqlHTTP } = require("express-graphql");
+const cors = require('cors');
+
 
 const schema = require("./graphql/Schema");
 const root = require("./graphql/resolvers");
 
 const app = express();
-
+app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
