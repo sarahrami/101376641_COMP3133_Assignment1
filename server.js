@@ -21,8 +21,6 @@ const MONGODB_URI="mongodb+srv://sarahrami97:rKcXzEa3p234lbya@cluster0.umsf83y.m
 
 mongoose
   .connect(MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
   })
   .then(() => {
     console.log("Successfully connected to database");
