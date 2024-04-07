@@ -16,10 +16,11 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(bodyParser.json());
 
-const DB_CONNECTION_STRING = process.env.MONGODB_URI;
+// const DB_CONNECTION_STRING = process.env.MONGODB_URI;
+const MONGODB_URI="mongodb+srv://sarahrami97:rKcXzEa3p234lbya@cluster0.umsf83y.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority"
 
 mongoose
-  .connect(DB_CONNECTION_STRING, {
+  .connect(MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
