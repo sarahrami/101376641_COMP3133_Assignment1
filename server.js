@@ -27,7 +27,7 @@ async function startServer() {
 
   const PORT = 4000;
   app.use(
-    "/graphql",
+    "/",
     graphqlHTTP({
       schema: schema,
       rootValue: root,
