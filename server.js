@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 
 const MONGODB_URI = "mongodb+srv://sarahrami97:rKcXzEa3p234lbya@cluster0.umsf83y.mongodb.net/comp3133_assigment1?retryWrites=true&w=majority";
 
-mongoose.connect(MONGODB_URI)
+await mongoose.connect(MONGODB_URI)
   .then(() => {
     console.log("Successfully connected to the database");
   })
